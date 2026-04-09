@@ -13,7 +13,9 @@ version = __version__
 
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
+    "sphinxarg.ext",  # placed before "sphinx_autodoc_typehints", see sphinx issue #14333
     "sphinx_autodoc_typehints",
 ]
 

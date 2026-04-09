@@ -32,6 +32,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+import librosa
 import numpy as np
 from librosa.filters import mel as librosa_mel
 from scipy.signal import get_window
@@ -269,6 +270,13 @@ class RMVPE:
 
     @staticmethod
     def _auto_device() -> str:
+        """Select the best available execution device automatically.
+
+        Iterates ``_PROVIDER_MAP`` in insertion order, which defines the
+        priority: ``cuda`` > ``dml`` > ``rocm`` > ``coreml`` > ``tensorrt`` >
+        ``openvino`` > ``cpu``.  The first non-CPU provider whose ORT backend
+        is available is returned; falls back to ``'cpu'`` if none are found.
+        """
         available = ort.get_available_providers()
         for device, provider in _PROVIDER_MAP.items():
             if device == "cpu":
@@ -317,6 +325,14 @@ class RMVPE:
 
     def _mel2hidden(self, mel: np.ndarray) -> np.ndarray:
         n_frames = mel.shape[-1]
+        if n_frames < 32:
+            logger.warning(
+                "Input audio is very short (%d mel frame(s)). "
+                "The output will be heavily padded and may be unreliable. "
+                "Consider passing at least %.2f seconds of audio.",
+                n_frames,
+                32 * _HOP_LENGTH / _SAMPLE_RATE,
+            )
         n_pad    = 32 * ((n_frames - 1) // 32 + 1) - n_frames
         if n_pad:
             mel = np.pad(mel, ((0, 0), (0, 0), (0, n_pad)))
@@ -386,8 +402,6 @@ class RMVPE:
         >>> len(time) == len(frequency) == len(confidence)  # doctest: +SKIP
         True
         """
-        import librosa
-
         # downmix + resample
         if audio.ndim > 1:
             audio = librosa.to_mono(audio.T)
@@ -395,7 +409,8 @@ class RMVPE:
             audio = librosa.resample(audio, orig_sr=sr, target_sr=_SAMPLE_RATE)
         audio = audio.astype(np.float32)
 
-        mel        = self.mel_extractor(audio)[np.newaxis]        # (1, 128, T)
+        mel        = self.mel_extractor(audio)[np.newaxis]        # (1, 128, T) — batch × mel_bins × frames
+        # _mel2hidden returns (batch, T, 360); drop batch dim → (T, 360) salience matrix
         activation = self._mel2hidden(mel)[0].astype(np.float32)  # (T, 360)
         confidence = activation.max(axis=1)                       # (T,)
 

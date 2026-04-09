@@ -5,4 +5,5 @@ rmvpe-onnx documentation
    :maxdepth: 2
    :caption: Contents:
 
+   cli
    api

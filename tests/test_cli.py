@@ -200,7 +200,7 @@ class TestMainPredict:
         ts, f0, conf, act = outputs
         mock_print, mock_rmvpe = self._run_predict(
             wav, (ts, f0, conf, act),
-            extra_args=["--confidence_threshold", "0.99"],
+            extra_args=["--confidence-threshold", "0.99"],
         )
         # With threshold=0.99 almost everything is zeroed
         printed = "\n".join(str(c) for c in mock_print.call_args_list)

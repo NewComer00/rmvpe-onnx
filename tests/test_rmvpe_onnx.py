@@ -7,6 +7,8 @@ Coverage:
   - RMVPE device/provider: _auto_device, _pick_provider error paths, per-provider options
   - Module-level guards: onnxruntime ImportError, minimum version check
   - ensure_model / default_model_path: path logic, download skipped when file exists
+  - weights: _sha256, _verify_model checksum logic
+  - _mel2hidden: short-audio warning
   - CLI: download and predict subcommands (subprocess)
 """
 
@@ -15,6 +17,7 @@ from __future__ import annotations
 import os
 import subprocess
 import sys
+import warnings
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -224,6 +227,20 @@ class TestMel2Hidden:
         hidden = rmvpe._mel2hidden(mel)
         assert hidden.shape[2] == 360
 
+    def test_short_audio_emits_warning(self):
+        """Fewer than 32 mel frames should log a warning."""
+        rmvpe, _ = _make_rmvpe(n_frames=10)
+        mel = np.zeros((1, 128, 10), dtype=np.float32)
+        with patch.object(rmvpe.session, "run", return_value=[np.zeros((1, 10, 360), dtype=np.float32)]):
+            with warnings.catch_warnings(record=True) as record:
+                assert len(record) == 0
+        # Check logger.warning is called
+        with patch("rmvpe_onnx.model.logger") as mock_logger:
+            rmvpe._mel2hidden(mel)
+            mock_logger.warning.assert_called_once()
+            msg = mock_logger.warning.call_args[0][0]
+            assert "short" in msg
+
 
 # ---------------------------------------------------------------------------
 # _to_local_average_cents
@@ -264,7 +281,10 @@ class TestEnsureModel:
         from rmvpe_onnx import ensure_model
         model = tmp_path / "rmvpe.onnx"
         model.write_bytes(b"fake")
-        with patch("huggingface_hub.hf_hub_download") as mock_dl:
+        with (
+            patch("huggingface_hub.hf_hub_download") as mock_dl,
+            patch("rmvpe_onnx.weights._verify_model"),
+        ):
             result = ensure_model(model)
             mock_dl.assert_not_called()
         assert result == str(model)
@@ -275,7 +295,10 @@ class TestEnsureModel:
         fake_cached = tmp_path / "cached.onnx"
         fake_cached.write_bytes(b"fake model bytes")
 
-        with patch("huggingface_hub.hf_hub_download", return_value=str(fake_cached)) as mock_dl:
+        with (
+            patch("huggingface_hub.hf_hub_download", return_value=str(fake_cached)) as mock_dl,
+            patch("rmvpe_onnx.weights._verify_model"),
+        ):
             result = ensure_model(str(dest))
             mock_dl.assert_called_once()
         assert Path(result).exists()
@@ -287,9 +310,87 @@ class TestEnsureModel:
         fake_cached = tmp_path / "cached.onnx"
         fake_cached.write_bytes(b"x")
 
-        with patch("huggingface_hub.hf_hub_download", return_value=str(fake_cached)):
+        with (
+            patch("huggingface_hub.hf_hub_download", return_value=str(fake_cached)),
+            patch("rmvpe_onnx.weights._verify_model"),
+        ):
             ensure_model(str(dest))
         assert dest.exists()
+
+    def test_verify_called_for_existing_file(self, tmp_path):
+        """_verify_model must be called even when the file already exists."""
+        from rmvpe_onnx import ensure_model
+        model = tmp_path / "rmvpe.onnx"
+        model.write_bytes(b"fake")
+        with (
+            patch("huggingface_hub.hf_hub_download"),
+            patch("rmvpe_onnx.weights._verify_model") as mock_verify,
+        ):
+            ensure_model(model)
+            mock_verify.assert_called_once_with(model)
+
+    def test_verify_called_after_download(self, tmp_path):
+        """_verify_model must be called after a fresh download."""
+        from rmvpe_onnx import ensure_model
+        dest = tmp_path / "rmvpe.onnx"
+        fake_cached = tmp_path / "cached.onnx"
+        fake_cached.write_bytes(b"x")
+        with (
+            patch("huggingface_hub.hf_hub_download", return_value=str(fake_cached)),
+            patch("rmvpe_onnx.weights._verify_model") as mock_verify,
+        ):
+            ensure_model(str(dest))
+            mock_verify.assert_called_once_with(dest)
+
+
+# ---------------------------------------------------------------------------
+# weights: _sha256 and _verify_model
+# ---------------------------------------------------------------------------
+
+class TestChecksumHelpers:
+    def test_sha256_matches_known_digest(self, tmp_path):
+        """_sha256 must return the correct hex digest for known content."""
+        import hashlib
+
+        from rmvpe_onnx.weights import _sha256
+        data = b"hello rmvpe"
+        f = tmp_path / "test.bin"
+        f.write_bytes(data)
+        expected = hashlib.sha256(data).hexdigest()
+        assert _sha256(f) == expected
+
+    def test_sha256_chunked_matches_single_read(self, tmp_path):
+        """Result must be identical regardless of chunk size."""
+        from rmvpe_onnx.weights import _sha256
+        data = b"x" * (3 * 1024 * 1024)  # 3 MB — crosses default 1 MB chunk boundary
+        f = tmp_path / "big.bin"
+        f.write_bytes(data)
+        assert _sha256(f, chunk=1024) == _sha256(f, chunk=1024 * 1024)
+
+    def test_verify_model_passes_on_correct_digest(self, tmp_path):
+        """_verify_model returns True when digest matches _MODEL_SHA256."""
+        import hashlib
+
+        from rmvpe_onnx import weights
+        data = b"canonical model bytes"
+        digest = hashlib.sha256(data).hexdigest()
+        f = tmp_path / "rmvpe.onnx"
+        f.write_bytes(data)
+        with patch.object(weights, "_MODEL_SHA256", digest):
+            assert weights._verify_model(f) is True
+
+    def test_verify_model_warns_on_wrong_digest(self, tmp_path):
+        """_verify_model returns False and logs a warning on mismatch."""
+        from rmvpe_onnx import weights
+        f = tmp_path / "rmvpe.onnx"
+        f.write_bytes(b"corrupted")
+        with patch.object(weights, "_MODEL_SHA256", "0" * 64):
+            with patch("rmvpe_onnx.weights.logger") as mock_logger:
+                result = weights._verify_model(f)
+        assert result is False
+        mock_logger.warning.assert_called_once()
+        warn_msg = mock_logger.warning.call_args[0][0]
+        assert "mismatch" in warn_msg.lower()
 
 
 # ---------------------------------------------------------------------------
