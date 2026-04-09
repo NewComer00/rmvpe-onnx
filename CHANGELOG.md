@@ -7,6 +7,39 @@ and this project adheres to Semantic Versioning.
 
 <!-- version list -->
 
+## v0.1.0 (2026-04-09)
+
+### Bug Fixes
+
+- Rename --confidence_threshold to --confidence-threshold
+  ([`34d424a`](https://github.com/NewComer00/rmvpe-onnx/commit/34d424adcd36f3eda65006bf2efbc339c79c50bd))
+
+### Build System
+
+- Bump minimum Python to 3.11 and onnxruntime to 1.24
+  ([`2fa808c`](https://github.com/NewComer00/rmvpe-onnx/commit/2fa808ca6880d25979503d483521d2ce9bce1e32))
+
+### Chores
+
+- Update the version of softprops/action-gh-release
+  ([`40d18fb`](https://github.com/NewComer00/rmvpe-onnx/commit/40d18fb9693e32024b1e7300956e619d204606fd))
+
+### Continuous Integration
+
+- Add macOS to test matrix and upload coverage from all platforms
+  ([`34d424a`](https://github.com/NewComer00/rmvpe-onnx/commit/34d424adcd36f3eda65006bf2efbc339c79c50bd))
+
+### Documentation
+
+- Simplify README and add Sphinx autosummary template
+  ([`34d424a`](https://github.com/NewComer00/rmvpe-onnx/commit/34d424adcd36f3eda65006bf2efbc339c79c50bd))
+
+### Features
+
+- **weights**: Add SHA-256 verification for the ONNX model file
+  ([`34d424a`](https://github.com/NewComer00/rmvpe-onnx/commit/34d424adcd36f3eda65006bf2efbc339c79c50bd))
+
+
 ## v0.0.0 (2026-04-09)
 
 - Initial Release
