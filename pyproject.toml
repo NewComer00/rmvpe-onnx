@@ -1,0 +1,156 @@
+[build-system]
+requires      = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name        = "rmvpe-onnx"
+version     = "0.1.0"
+description = "RMVPE pitch estimator — pure ONNX Runtime inference"
+readme      = "README.md"
+license     = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "numpy >= 1.21",
+    "scipy >= 1.7",
+    "librosa >= 0.9",
+    "huggingface_hub >= 0.16",
+    "onnxruntime >= 1.17",
+]
+
+[project.urls]
+Documentation = "https://NewComer00.github.io/rmvpe-onnx/"
+Source = "https://github.com/NewComer00/rmvpe-onnx"
+
+[project.optional-dependencies]
+cli = [
+    "soundfile >= 0.12",
+    "plotly >= 5.0",
+]
+dev = [
+    "rmvpe-onnx[cli]",
+    "pytest >= 8.0",
+    "pytest-cov >= 5.0",
+    "ruff >= 0.4",
+    "python-semantic-release >= 9.0",
+    "pyinstaller >= 6.0",
+    "sphinx >= 7.0",
+    "sphinx-autodoc-typehints >= 2.0",
+    "furo >= 2024.0",
+    "sphinx-autobuild >= 2024.0",
+    "build >= 1.0",
+]
+
+[project.scripts]
+rmvpe-onnx = "rmvpe_onnx.cli:main"
+
+[project.entry-points."pyinstaller40"]
+hook-dirs = "rmvpe_onnx.PyInstaller:get_hook_dirs"
+
+[tool.hatch.build.targets.wheel]
+packages  = ["src/rmvpe_onnx"]
+artifacts = ["src/rmvpe_onnx/data/*.onnx"]
+
+[tool.ruff]
+target-version = "py310"
+line-length    = 128
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "D",   # pydocstyle
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "C90", # mcCabe complexity
+]
+ignore = [
+    "SIM117",  # allow nested `with` statements
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "S101",   # allow assert statements in tests
+    "D",      # ignore docstring issues in tests
+]
+"src/rmvpe_onnx/PyInstaller/*" = [
+    "D",      # ignore docstring issues in PyInstaller hooks
+]
+"src/rmvpe_onnx/cli.py" = [
+    "D",      # ignore docstring issues in CLI
+]
+"docs/source/conf.py" = [
+    "D",      # ignore docstring issues in Sphinx config
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.format]
+quote-style              = "double"
+indent-style             = "space"
+skip-magic-trailing-comma = false
+
+[tool.pytest.ini_options]
+testpaths     = ["tests", "src/rmvpe_onnx"]
+addopts       = [
+    "-ra",
+    "-v",
+    "--doctest-modules",
+    "--cov=rmvpe_onnx",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+doctest_optionflags = [
+    "NORMALIZE_WHITESPACE",
+    "ELLIPSIS",
+]
+
+[tool.coverage.run]
+source   = ["src/rmvpe_onnx"]
+omit     = [
+    "src/rmvpe_onnx/PyInstaller/*",
+]
+
+[tool.coverage.report]
+show_missing  = true
+skip_covered  = false
+fail_under    = 85
+
+[tool.semantic_release]
+commit_parser = "conventional"
+version_toml = ["pyproject.toml:project.version"]
+version_variables = ["src/rmvpe_onnx/__init__.py:__version__"]
+tag_format = "v{version}"
+major_on_zero = false  # TODO: set to true after the first stable release
+allow_zero_version = true
+
+[tool.semantic_release.branches.main]
+match = "(main|master)"
+
+[tool.semantic_release.changelog]
+mode = "update"
+insertion_flag = "<!-- version list -->"
+
+[tool.semantic_release.commit_parser_options]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
+other_allowed_tags = ["build", "chore", "ci", "docs", "style", "refactor", "test"]
+parse_squash_commits = true
+ignore_merge_commits = true
+
+[tool.semantic_release.remote]
+type = "github"
+token = { env = "GITHUB_TOKEN" }
+ignore_token_for_push = true  # See https://github.com/dxvidparham/psr-deploy-keys-for-protected-branches
+
+[tool.semantic_release.publish]
+upload_to_vcs_release = false  # Assets will be built and published in a separate workflow
+dist_glob_patterns = []

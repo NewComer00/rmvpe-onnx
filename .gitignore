@@ -1,0 +1,17 @@
+src/rmvpe_onnx/data/*.onnx
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+.hatch/
+.venv/
+.uv/
+.ruff_cache/
+uv.lock
+.coverage
+coverage.*
+htmlcov/
+.pytest_cache/
+site/
+docs/build/
