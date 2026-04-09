@@ -528,7 +528,7 @@ class TestModuleGuards:
         mock_ort.get_available_providers.return_value = ["CPUExecutionProvider"]
 
         with patch.dict(sys.modules, {"onnxruntime": mock_ort}):
-            with pytest.raises(RuntimeError, match="onnxruntime >= 1.17 is required"):
+            with pytest.raises(RuntimeError, match="onnxruntime >= 1.24 is required"):
                 importlib.import_module("rmvpe_onnx.model")
 
 

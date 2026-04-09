@@ -50,7 +50,7 @@ _ORT_MIN_VERSION = (1, 17)
 _ort_version = tuple(int(x) for x in ort.__version__.split(".")[:2])
 if _ort_version < _ORT_MIN_VERSION:
     raise RuntimeError(
-        f"onnxruntime >= 1.17 is required, found {ort.__version__}. "
+        f"onnxruntime >= 1.24 is required, found {ort.__version__}. "
         "Please upgrade onnxruntime."
     )
 
@@ -217,7 +217,7 @@ class RMVPE:
 
     Notes
     -----
-    - Requires ``onnxruntime >= 1.17``.
+    - Requires ``onnxruntime >= 1.24``.
     - Uses a NumPy-based mel spectrogram frontend (no PyTorch dependency).
     - Audio is internally resampled to 16 kHz and downmixed to mono.
     - Frame hop is 160 samples (~10 ms at 16 kHz).
