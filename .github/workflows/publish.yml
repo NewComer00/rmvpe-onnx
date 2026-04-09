@@ -37,6 +37,6 @@ jobs:
         uses: pypa/gh-action-pypi-publish@3317ede93a4981d0fc490510c6fcf8bf0e92ed05 # v1
 
       - name: Attach wheel to GitHub release
-        uses: softprops/action-gh-release@153bb8e46f4a00ac8b34a9e8ded6fe15bb2eda94 # v2
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
         with:
           files: dist/*
