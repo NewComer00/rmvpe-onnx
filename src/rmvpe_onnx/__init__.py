@@ -17,7 +17,7 @@ References
 from .model import RMVPE, MelSpectrogram
 from .weights import default_model_path, ensure_model
 
-__version__ = "0.1.0"
+__version__ = "0.0.0"
 
 __all__ = [
     "RMVPE",
