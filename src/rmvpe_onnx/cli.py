@@ -97,12 +97,12 @@ def _plot(time, f0, confidence, activation):
     fig.show()
 
 
-def main():
-    import argparse
-    import os
-    import time
+def get_parser():
+    """Return the argument parser for the ``rmvpe-onnx`` CLI.
 
-    import numpy as np
+    Used by Sphinx ``sphinxarg.ext`` to auto-generate CLI documentation.
+    """
+    import argparse
 
     parser = argparse.ArgumentParser(
         prog="rmvpe-onnx",
@@ -114,16 +114,25 @@ def main():
     dl = sub.add_parser("download", help="Download the ONNX model")
     dl.add_argument("--model", default=None, help="Destination path for rmvpe.onnx (default: default model path)")  # noqa: E501
 
-    # ── run ──────────────────────────────────────────────────────────────────
+    # ── predict ──────────────────────────────────────────────────────────────
     run = sub.add_parser("predict", help="Run pitch prediction on an audio file")
-    run.add_argument("audio",                                   help="Path to input audio file")  # noqa: E501
-    run.add_argument("--model",            default=None,        help="Path to rmvpe.onnx (default: default model path)")  # noqa: E501
-    run.add_argument("--device",           default=None,        help="Inference device: cpu | cuda | cuda:N | dml | coreml (default: auto-detect)")  # noqa: E501
-    run.add_argument("--csv",              default=None,        help="Save pitch results to a .csv file at the given path")  # noqa: E501
-    run.add_argument("--confidence_threshold", type=float, default=0.03, help="Zero out the frequency of frames below this confidence threshold (0–1, default: 0.03)")  # noqa: E501
-    run.add_argument("--plot",             action="store_true", help="Show an interactive pitch plot after inference")  # noqa: E501
+    run.add_argument("audio",                                        help="Path to input audio file (any format supported by soundfile, typically WAV)")  # noqa: E501
+    run.add_argument("--model",               default=None,          help="Path to rmvpe.onnx (default: default model path)")  # noqa: E501
+    run.add_argument("--device",              default=None,          help="Inference device to use: cpu, cuda, cuda:N, dml, or coreml (default: auto-detect)")  # noqa: E501
+    run.add_argument("--csv",                 default=None,          help="Save results to a CSV file (columns: time, frequency, confidence); threshold is applied before saving")  # noqa: E501
+    run.add_argument("--confidence-threshold", type=float, default=0.03, dest="confidence_threshold", help="Frames below this confidence threshold (0.0–1.0) are zeroed out (default: 0.03)")  # noqa: E501
+    run.add_argument("--plot",                action="store_true",   help="Show an interactive pitch plot after inference")  # noqa: E501
 
-    args = parser.parse_args()
+    return parser
+
+
+def main():
+    import os
+    import time
+
+    import numpy as np
+
+    args = get_parser().parse_args()
 
     # ── download command ──────────────────────────────────────────────────────
     if args.command == "download":
@@ -131,7 +140,7 @@ def main():
         print(f"Model ready: {os.path.abspath(download_path)}")
         return
 
-    # ── run command ───────────────────────────────────────────────────────────
+    # ── predict command ───────────────────────────────────────────────────────
     try:
         import soundfile as sf
     except ImportError:
