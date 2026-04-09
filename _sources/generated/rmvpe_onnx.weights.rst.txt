@@ -1,0 +1,32 @@
+﻿rmvpe_onnx.weights
+==================
+
+.. automodule:: rmvpe_onnx.weights
+
+
+
+
+
+
+
+Functions
+---------
+
+.. autosummary::
+   :nosignatures:
+
+   default_model_path
+
+   ensure_model
+
+
+
+.. autofunction:: default_model_path
+
+.. autofunction:: ensure_model
+
+
+
+
+
+

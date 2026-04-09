@@ -1,0 +1,40 @@
+﻿rmvpe_onnx.model
+================
+
+.. automodule:: rmvpe_onnx.model
+
+
+
+Classes
+-------
+
+.. autosummary::
+   :nosignatures:
+
+   MelSpectrogram
+
+   RMVPE
+
+
+
+.. autoclass:: MelSpectrogram
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__, __call__
+
+.. autoclass:: RMVPE
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__, __call__
+
+
+
+
+
+
+
+
+
+

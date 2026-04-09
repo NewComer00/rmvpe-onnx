@@ -1,12 +1,9 @@
 API Reference
 =============
 
-.. automodule:: rmvpe_onnx.model
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autosummary::
+   :toctree: generated
+   :recursive:
 
-.. automodule:: rmvpe_onnx.weights
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   rmvpe_onnx.model
+   rmvpe_onnx.weights

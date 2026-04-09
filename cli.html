@@ -2,10 +2,12 @@
 <html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#"><link rel="search" title="Search" href="search.html">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API Reference" href="api.html"><link rel="prev" title="rmvpe-onnx documentation" href="index.html">
 
-    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 --><title>Index - rmvpe-onnx 0.1.0 documentation</title>
-<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>CLI Reference - rmvpe-onnx 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
@@ -170,7 +172,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -189,8 +191,8 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Reference</a></li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">CLI Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/rmvpe_onnx.model.html">rmvpe_onnx.model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/rmvpe_onnx.weights.html">rmvpe_onnx.weights</a></li>
@@ -215,7 +217,13 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/cli.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
               <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
@@ -223,117 +231,110 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          
-<section class="genindex-section">
-  <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a></div>
+          <section id="cli-reference">
+<h1>CLI Reference<a class="headerlink" href="#cli-reference" title="Link to this heading">¶</a></h1>
+<p><p>RMVPE pitch estimator — ONNX Runtime inference</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">rmvpe</span><span class="o">-</span><span class="n">onnx</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">{</span><span class="n">download</span><span class="p">,</span><span class="n">predict</span><span class="p">}</span> <span class="o">...</span>
+</pre></div>
+</div>
+<section id="rmvpe_onnx.cli-get_parser-positional-arguments">
+<h2>Positional Arguments<a class="headerlink" href="#rmvpe_onnx.cli-get_parser-positional-arguments" title="Link to this heading">¶</a></h2>
+<dl class="option-list">
+<dt><kbd>command</kbd></dt>
+<dd><p>Possible choices: download, predict</p>
+</dd>
+</dl>
 </section>
-<section id="_" class="genindex-section">
-  <h2>_</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.model.html#rmvpe_onnx.model.MelSpectrogram.__call__">__call__() (rmvpe_onnx.model.MelSpectrogram method)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.model.html#rmvpe_onnx.model.MelSpectrogram.__init__">__init__() (rmvpe_onnx.model.MelSpectrogram method)</a>
-
-        <ul>
-          <li><a href="generated/rmvpe_onnx.model.html#rmvpe_onnx.model.RMVPE.__init__">(rmvpe_onnx.model.RMVPE method)</a>
-</li>
-        </ul></li>
-    </ul></td>
-  </tr></table>
+<section id="Sub-commands">
+<h2>Sub-commands<a class="headerlink" href="#Sub-commands" title="Link to this heading">¶</a></h2>
+<section id="download">
+<h3>download<a class="headerlink" href="#download" title="Link to this heading">¶</a></h3>
+<p>Download the ONNX model</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rmvpe</span><span class="o">-</span><span class="n">onnx</span> <span class="n">download</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">model</span> <span class="n">MODEL</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="named-arguments">
+<h4>Named Arguments<a class="headerlink" href="#named-arguments" title="Link to this heading">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--model</kbd></dt>
+<dd><p>Destination path for rmvpe.onnx (default: default model path)</p>
+</dd>
+</dl>
 </section>
-
-<section id="D" class="genindex-section">
-  <h2>D</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.weights.html#rmvpe_onnx.weights.default_model_path">default_model_path() (in module rmvpe_onnx.weights)</a>
-</li>
-    </ul></td>
-  </tr></table>
 </section>
-
-<section id="E" class="genindex-section">
-  <h2>E</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.weights.html#rmvpe_onnx.weights.ensure_model">ensure_model() (in module rmvpe_onnx.weights)</a>
-</li>
-    </ul></td>
-  </tr></table>
+<section id="predict">
+<h3>predict<a class="headerlink" href="#predict" title="Link to this heading">¶</a></h3>
+<p>Run pitch prediction on an audio file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rmvpe</span><span class="o">-</span><span class="n">onnx</span> <span class="n">predict</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">model</span> <span class="n">MODEL</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">device</span> <span class="n">DEVICE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">csv</span> <span class="n">CSV</span><span class="p">]</span>
+                   <span class="p">[</span><span class="o">--</span><span class="n">confidence</span><span class="o">-</span><span class="n">threshold</span> <span class="n">CONFIDENCE_THRESHOLD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">plot</span><span class="p">]</span>
+                   <span class="n">audio</span>
+</pre></div>
+</div>
+<section id="positional-arguments">
+<h4>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Link to this heading">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>audio</kbd></dt>
+<dd><p>Path to input audio file (any format supported by soundfile, typically WAV)</p>
+</dd>
+</dl>
 </section>
-
-<section id="M" class="genindex-section">
-  <h2>M</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.model.html#rmvpe_onnx.model.MelSpectrogram">MelSpectrogram (class in rmvpe_onnx.model)</a>
-</li>
-        <li>
-    module
-
-        <ul>
-          <li><a href="generated/rmvpe_onnx.model.html#module-rmvpe_onnx.model">rmvpe_onnx.model</a>
-</li>
-          <li><a href="generated/rmvpe_onnx.weights.html#module-rmvpe_onnx.weights">rmvpe_onnx.weights</a>
-</li>
-        </ul></li>
-    </ul></td>
-  </tr></table>
+<section id="named-arguments_repeat1">
+<h4>Named Arguments<a class="headerlink" href="#named-arguments_repeat1" title="Link to this heading">¶</a></h4>
+<dl class="option-list">
+<dt><kbd>--model</kbd></dt>
+<dd><p>Path to rmvpe.onnx (default: default model path)</p>
+</dd>
+<dt><kbd>--device</kbd></dt>
+<dd><p>Inference device to use: cpu, cuda, cuda:N, dml, or coreml (default: auto-detect)</p>
+</dd>
+<dt><kbd>--csv</kbd></dt>
+<dd><p>Save results to a CSV file (columns: time, frequency, confidence); threshold is applied before saving</p>
+</dd>
+<dt><kbd>--confidence-threshold</kbd></dt>
+<dd><p>Frames below this confidence threshold (0.0–1.0) are zeroed out (default: 0.03)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.03</span></code></p>
+</dd>
+<dt><kbd>--plot</kbd></dt>
+<dd><p>Show an interactive pitch plot after inference</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
 </section>
-
-<section id="P" class="genindex-section">
-  <h2>P</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.model.html#rmvpe_onnx.model.RMVPE.predict">predict() (rmvpe_onnx.model.RMVPE method)</a>
-</li>
-    </ul></td>
-  </tr></table>
 </section>
-
-<section id="R" class="genindex-section">
-  <h2>R</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="generated/rmvpe_onnx.model.html#rmvpe_onnx.model.RMVPE">RMVPE (class in rmvpe_onnx.model)</a>
-</li>
-        <li>
-    rmvpe_onnx.model
-
-        <ul>
-          <li><a href="generated/rmvpe_onnx.model.html#module-rmvpe_onnx.model">module</a>
-</li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    rmvpe_onnx.weights
-
-        <ul>
-          <li><a href="generated/rmvpe_onnx.weights.html#module-rmvpe_onnx.weights">module</a>
-</li>
-        </ul></li>
-    </ul></td>
-  </tr></table>
 </section>
-
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="api.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API Reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -352,8 +353,39 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">CLI Reference</a><ul>
+<li><a class="reference internal" href="#rmvpe_onnx.cli-get_parser-positional-arguments">Positional Arguments</a></li>
+<li><a class="reference internal" href="#Sub-commands">Sub-commands</a><ul>
+<li><a class="reference internal" href="#download">download</a><ul>
+<li><a class="reference internal" href="#named-arguments">Named Arguments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#predict">predict</a><ul>
+<li><a class="reference internal" href="#positional-arguments">Positional Arguments</a></li>
+<li><a class="reference internal" href="#named-arguments_repeat1">Named Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
