@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name        = "rmvpe-onnx"
-version     = "0.2.1"
+version     = "0.2.2"
 description = "RMVPE pitch estimator — pure ONNX Runtime inference"
 readme      = "README.md"
 license     = { text = "MIT" }

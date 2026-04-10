@@ -7,6 +7,14 @@ and this project adheres to Semantic Versioning.
 
 <!-- version list -->
 
+## v0.2.2 (2026-04-10)
+
+### Bug Fixes
+
+- Relax numpy lower bound to support numpy 1.x users
+  ([`4ce158e`](https://github.com/NewComer00/rmvpe-onnx/commit/4ce158e594096d47f47df58b03874705f3d060e8))
+
+
 ## v0.2.1 (2026-04-10)
 
 ### Bug Fixes
