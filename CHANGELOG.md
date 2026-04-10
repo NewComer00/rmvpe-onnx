@@ -7,6 +7,19 @@ and this project adheres to Semantic Versioning.
 
 <!-- version list -->
 
+## v0.2.1 (2026-04-10)
+
+### Bug Fixes
+
+- Tighten version markers for numpy and onnxruntime on Python 3.10
+  ([`a542dde`](https://github.com/NewComer00/rmvpe-onnx/commit/a542dde8cabbeb9e280dbb510de254f1fabb10bd))
+
+### Documentation
+
+- Add uv install instructions and development setup
+  ([`77856f1`](https://github.com/NewComer00/rmvpe-onnx/commit/77856f1a240bdc72e3ae3be9f6a806f5529615e2))
+
+
 ## v0.2.0 (2026-04-10)
 
 ### Features
