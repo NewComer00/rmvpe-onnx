@@ -39,6 +39,8 @@ jobs:
         cache-dependency-path: pyproject.toml
 
     - name: Run tests
+      # NOTE: intentionally using pip (not uv) to test pip install compatibility
+      # "uv sync" is tested in the tox envs, which use the uv runner
       run: |
         pip install -e ".[dev]"
         tox
