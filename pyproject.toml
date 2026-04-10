@@ -10,13 +10,13 @@ readme      = "README.md"
 license     = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
+    "numpy >= 2.2, < 2.3; python_version < '3.11'",
     "numpy >= 2.2; python_version >= '3.11'",
-    "numpy >= 1.26; python_version < '3.11'",
     "scipy >= 1.15",
     "librosa >= 0.11",
     "huggingface_hub >= 1.9",
     "onnxruntime >= 1.24; python_version >= '3.11'",
-    "onnxruntime >= 1.19; python_version < '3.11'",
+    "onnxruntime >= 1.19, < 1.24; python_version < '3.11'",
 ]
 
 [project.urls]
@@ -142,9 +142,9 @@ fail_under    = 85
 
 [tool.tox]
 env_list = ["lint", "docs", "py310", "py311", "py312", "py313", "py314"]
-runner = "uv-venv-runner"
 
 [tool.tox.env_run_base]
+runner = "uv-venv-lock-runner"
 extras = ["dev"]
 commands = [["pytest", "{posargs}"]]
 

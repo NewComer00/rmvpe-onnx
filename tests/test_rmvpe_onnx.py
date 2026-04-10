@@ -403,7 +403,7 @@ class TestCLIDownload:
         model.write_bytes(b"fake")
         result = subprocess.run(
             [sys.executable, "-m", "rmvpe_onnx.cli", "download", "--model", str(model)],
-            capture_output=True, text=True,
+            capture_output=True, text=True, encoding="utf-8",
         )
         assert result.returncode == 0
         assert "Model ready" in result.stdout
@@ -411,7 +411,7 @@ class TestCLIDownload:
     def test_download_unknown_flag_exits_nonzero(self):
         result = subprocess.run(
             [sys.executable, "-m", "rmvpe_onnx.cli", "download", "--notaflag"],
-            capture_output=True, text=True,
+            capture_output=True, text=True, encoding="utf-8",
         )
         assert result.returncode != 0
 
@@ -448,14 +448,14 @@ class TestCLIPredict:
                 str(tmp_path / "nonexistent.wav"),
                 "--model", str(fake_model),
             ],
-            capture_output=True, text=True,
+            capture_output=True, text=True, encoding="utf-8",
         )
         assert result.returncode != 0
 
     def test_predict_no_audio_arg_exits_nonzero(self):
         result = subprocess.run(
             [sys.executable, "-m", "rmvpe_onnx.cli", "predict"],
-            capture_output=True, text=True,
+            capture_output=True, text=True, encoding="utf-8",
         )
         assert result.returncode != 0
 
@@ -484,7 +484,7 @@ class TestCLIPredict:
                     "--model", str(tmp_path / "rmvpe.onnx"),
                     "--csv", str(csv_out),
                 ],
-                capture_output=True, text=True,
+                capture_output=True, text=True, encoding="utf-8",
                 env={**os.environ},
             )
 

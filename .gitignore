@@ -8,7 +8,6 @@ __pycache__/
 .venv/
 .uv/
 .ruff_cache/
-uv.lock
 .coverage
 coverage.*
 htmlcov/
@@ -16,3 +15,4 @@ htmlcov/
 site/
 docs/build/
 docs/source/generated/
+.tox/
