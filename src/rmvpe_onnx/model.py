@@ -34,25 +34,9 @@ from pathlib import Path
 
 import librosa
 import numpy as np
+import onnxruntime as ort
 from librosa.filters import mel as librosa_mel
 from scipy.signal import get_window
-
-try:
-    import onnxruntime as ort
-except ImportError:
-    raise ImportError(
-        "onnxruntime is not installed. "
-        "Please install it through the instructions from https://onnxruntime.ai/, "
-        "or simply run `pip install onnxruntime` for CPU-only inference."
-    ) from None
-
-_ORT_MIN_VERSION = (1, 17)
-_ort_version = tuple(int(x) for x in ort.__version__.split(".")[:2])
-if _ort_version < _ORT_MIN_VERSION:
-    raise RuntimeError(
-        f"onnxruntime >= 1.24 is required, found {ort.__version__}. "
-        "Please upgrade onnxruntime."
-    )
 
 logger = logging.getLogger(__name__)
 
@@ -217,7 +201,6 @@ class RMVPE:
 
     Notes
     -----
-    - Requires ``onnxruntime >= 1.24``.
     - Uses a NumPy-based mel spectrogram frontend (no PyTorch dependency).
     - Audio is internally resampled to 16 kHz and downmixed to mono.
     - Frame hop is 160 samples (~10 ms at 16 kHz).
