@@ -10,8 +10,8 @@ readme      = "README.md"
 license     = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
-    "numpy >= 2.2, < 2.3; python_version < '3.11'",
-    "numpy >= 2.2; python_version >= '3.11'",
+    "numpy >= 1.22, < 2.3; python_version < '3.11'",
+    "numpy >= 1.23; python_version >= '3.11'",
     "scipy >= 1.15",
     "librosa >= 0.11",
     "huggingface_hub >= 1.9",
