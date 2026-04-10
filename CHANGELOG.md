@@ -7,6 +7,17 @@ and this project adheres to Semantic Versioning.
 
 <!-- version list -->
 
+## v0.2.0 (2026-04-10)
+
+### Features
+
+- Add Python 3.10 support and tox-based CI pipeline
+  ([`e334fba`](https://github.com/NewComer00/rmvpe-onnx/commit/e334fba1ecdfef59abf0b7ca75a1294e8528838d))
+
+- Add Python 3.14 to the CI matrix
+  ([`7200e53`](https://github.com/NewComer00/rmvpe-onnx/commit/7200e534be70539b27895eab4e45f13de7aa5dac))
+
+
 ## v0.1.0 (2026-04-09)
 
 ### Bug Fixes
