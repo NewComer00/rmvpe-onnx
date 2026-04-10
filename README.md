@@ -16,19 +16,39 @@ Copyright (c) 2022 lj1995 — MIT License
 
 ## Install
 
+### pip
+
 ```bash
 pip install rmvpe-onnx        # Python API only
-pip install rmvpe-onnx[cli]   # with CLI tool
+pip install rmvpe-onnx[cli]   # Python API with CLI tool
+```
+
+### uv
+
+```bash
+uv add rmvpe-onnx             # Python API only
+uv add rmvpe-onnx[cli]        # Python API with CLI tool
 ```
 
 > [!TIP]
-> Includes `onnxruntime` (CPU). For hardware acceleration (CUDA, DirectML, etc.), install a compatible ONNX Runtime variant. See the [ONNX Runtime documentation](https://onnxruntime.ai/).
+> This package includes `onnxruntime` (CPU) as a dependency, which is sufficient for most use cases.
+> For hardware acceleration (CUDA, DirectML, etc.), please install a compatible ONNX Runtime variant. See the [ONNX Runtime documentation](https://onnxruntime.ai/).
+
+## Development
+
+```bash
+git clone https://github.com/NewComer00/rmvpe-onnx && cd rmvpe-onnx
+uv sync --extra dev
+
+# Optional: run all tests
+# uv run tox
+```
 
 ## CLI
 
 ```bash
-# Download the ONNX model
-# [optional] auto-downloaded on first predict if skipped
+# Optional: Download the ONNX model
+# Will be done automatically on first prediction if not done manually
 rmvpe-onnx download
 
 # Run pitch prediction with default settings and plot the results
