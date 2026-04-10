@@ -1,6 +1,10 @@
 # rmvpe-onnx
 
-RMVPE pitch estimator — pure ONNX Runtime inference, no PyTorch required.
+[![PyPI version](https://badge.fury.io/py/rmvpe-onnx.svg)](https://badge.fury.io/py/rmvpe-onnx)
+[![Required Python Version](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FNewComer00%2Frmvpe-onnx%2FHEAD%2Fpyproject.toml)](https://pypi.org/project/rmvpe-onnx/)
+[![License](https://img.shields.io/pypi/l/rmvpe-onnx.svg)](https://pypi.org/project/rmvpe-onnx/)
+
+RMVPE pitch estimator with ONNX Runtime backend.
 
 A simple wrapper around ONNX-related code in [`rvc/lib/rmvpe.py @ 7e03261`](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion/blob/7e03261/rvc/lib/rmvpe.py), [RVC-Project/Retrieval-based-Voice-Conversion](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion)  
 Copyright (c) 2023 liujing04, 源文雨, Ftps — MIT License

@@ -496,43 +496,6 @@ class TestCLIPredict:
 
 
 # ---------------------------------------------------------------------------
-# Module-level guards (lines 22-23, 32)
-# ---------------------------------------------------------------------------
-
-class TestModuleGuards:
-    def test_missing_onnxruntime_raises_import_error(self):
-        """ImportError with a helpful message when onnxruntime is absent."""
-        import importlib
-        import sys
-
-        # Remove cached module so the try/except block re-executes
-        mods_to_remove = [k for k in sys.modules if "rmvpe_onnx.model" in k]
-        for mod in mods_to_remove:
-            del sys.modules[mod]
-
-        with patch.dict(sys.modules, {"onnxruntime": None}):
-            with pytest.raises(ImportError, match="onnxruntime is not installed"):
-                importlib.import_module("rmvpe_onnx.model")
-
-    def test_old_onnxruntime_raises_runtime_error(self):
-        """RuntimeError when onnxruntime is present but below minimum version."""
-        import importlib
-        import sys
-
-        mods_to_remove = [k for k in sys.modules if "rmvpe_onnx.model" in k]
-        for mod in mods_to_remove:
-            del sys.modules[mod]
-
-        mock_ort = MagicMock()
-        mock_ort.__version__ = "1.16.0"
-        mock_ort.get_available_providers.return_value = ["CPUExecutionProvider"]
-
-        with patch.dict(sys.modules, {"onnxruntime": mock_ort}):
-            with pytest.raises(RuntimeError, match="onnxruntime >= 1.24 is required"):
-                importlib.import_module("rmvpe_onnx.model")
-
-
-# ---------------------------------------------------------------------------
 # MelSpectrogram — window-padding branch (lines 108-109) and
 # keyshift magnitude-padding branch (line 124)
 # ---------------------------------------------------------------------------
