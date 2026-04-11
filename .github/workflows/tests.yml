@@ -79,7 +79,7 @@ jobs:
 
     - name: Run lint
       run: |
-        pip install -e ".[dev]"
+        pip install -e ".[tox]"
         tox -e lint
 
   docs:
@@ -96,5 +96,5 @@ jobs:
 
     - name: Build docs
       run: |
-        pip install -e ".[dev]"
+        pip install -e ".[tox]"
         tox -e docs

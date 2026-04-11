@@ -28,32 +28,42 @@ cli = [
     "soundfile >= 0.13",
     "plotly >= 6.6",
 ]
-dev = [
-    "rmvpe-onnx[cli]",
-
-    # testing
-    "pytest >= 9.0",
-    "pytest-cov >= 7.1",
+uv = [
+    "uv >= 0.11",
+]
+lint = [
+    "ruff >= 0.15",
+]
+tox = [
+    "rmvpe-onnx[uv]",
     "tox >= 4.22",
     "tox-uv >= 1.34",
     "tox-gh >= 1.4",
-
-    # linting
-    "ruff >= 0.15",
-
-    # releasing
+]
+test = [
+    "rmvpe-onnx[cli,lint,tox]",
+    "pytest >= 9.0",
+    "pytest-cov >= 7.1",
+]
+release = [
+    "rmvpe-onnx[uv]",
     "python-semantic-release >= 10.5",
+]
+build = [
     "build >= 1.4",
-
-    # packaging
+]
+install = [
     "pyinstaller >= 6.19",
-
-    # docs
+]
+docs = [
     "sphinx >= 8.1",
     "sphinx-autodoc-typehints >= 3.0",
     "sphinx-argparse >= 0.5",
     "sphinx-autobuild >= 2024.10",
     "furo >= 2025.12",
+]
+dev = [
+    "rmvpe-onnx[cli,lint,test,release,build,install,docs]",
 ]
 
 [project.scripts]
@@ -150,14 +160,14 @@ commands = [["pytest", "{posargs}"]]
 
 [tool.tox.env.lint]
 base_python = "py310"
-extras = ["dev"]
+extras = ["lint"]
 commands = [
     ["ruff", "check"],
 ]
 
 [tool.tox.env.docs]
 base_python = "py310"
-extras = ["dev"]
+extras = ["docs"]
 commands = [
     ["sphinx-build", "-W", "docs/source", "docs/build/html"]
 ]
@@ -176,6 +186,10 @@ version_variables = ["src/rmvpe_onnx/__init__.py:__version__"]
 tag_format = "v{version}"
 major_on_zero = false  # TODO: set to true after the first stable release
 allow_zero_version = true
+build_command = """
+    uv lock --upgrade-package "$PACKAGE_NAME"
+    git add uv.lock
+"""
 
 [tool.semantic_release.branches.main]
 match = "(main|master)"

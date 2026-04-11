@@ -19,15 +19,15 @@ Copyright (c) 2022 lj1995 — MIT License
 ### pip
 
 ```bash
-pip install rmvpe-onnx        # Python API only
-pip install rmvpe-onnx[cli]   # Python API with CLI tool
+pip install rmvpe-onnx         # Python API only
+pip install "rmvpe-onnx[cli]"  # Python API with CLI tool
 ```
 
 ### uv
 
 ```bash
-uv add rmvpe-onnx             # Python API only
-uv add rmvpe-onnx[cli]        # Python API with CLI tool
+uv add rmvpe-onnx              # Python API only
+uv add "rmvpe-onnx[cli]"       # Python API with CLI tool
 ```
 
 > [!TIP]
@@ -40,7 +40,7 @@ uv add rmvpe-onnx[cli]        # Python API with CLI tool
 git clone https://github.com/NewComer00/rmvpe-onnx && cd rmvpe-onnx
 uv sync --extra dev
 
-# Optional: run all tests
+# Optional: Run all tests
 # uv run tox
 ```
 
@@ -71,7 +71,7 @@ rmvpe = RMVPE()
 
 time, frequency, confidence, activation = rmvpe.predict(audio=audio, sr=sr)
 
-# Optional: zero out frequency where confidence is below a threshold
+# Optional: Zero out frequency where confidence is below a threshold
 # frequency[confidence < 0.03] = 0.0
 ```
 
