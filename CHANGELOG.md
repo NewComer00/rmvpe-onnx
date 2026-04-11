@@ -7,6 +7,18 @@ and this project adheres to Semantic Versioning.
 
 <!-- version list -->
 
+## v0.2.3 (2026-04-11)
+
+### Bug Fixes
+
+- **ci**: Refactor extras and add uv.lock build command to fix version mismatch of host repo in
+  uv.lock
+  ([`477d81e`](https://github.com/NewComer00/rmvpe-onnx/commit/477d81e4f0d2765b4d06799cbe671d443674e618))
+
+- **ci**: Update uv.lock
+  ([`3caabec`](https://github.com/NewComer00/rmvpe-onnx/commit/3caabec72121bb827c61df658eaaa9dbb8764c70))
+
+
 ## v0.2.2 (2026-04-10)
 
 ### Bug Fixes
